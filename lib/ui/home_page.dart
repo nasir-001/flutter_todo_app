@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
   var notifyHelper;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     notifyHelper = NotifyHelper();
     notifyHelper.initializeNotification();
@@ -43,6 +42,8 @@ class _HomePageState extends State<HomePage> {
 
   _appBar() {
     return AppBar(
+      elevation: 0,
+      backgroundColor: context.theme.backgroundColor,
       leading: GestureDetector(
         onTap: () {
           ThemeServices().switchTheme();
@@ -53,12 +54,17 @@ class _HomePageState extends State<HomePage> {
 
           notifyHelper.scheduledNotification();
         },
-        child: Icon(Icons.nightlight_round,
-        size: 20,),
+        child: Icon(Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
+        size: 20,
+          color: Get.isDarkMode ? Colors.white : Colors.black,
+        ),
       ), 
       actions: [
-        Icon(Icons.person,
-        size: 20,),
+        CircleAvatar(
+          backgroundImage: AssetImage(
+            "images/profile.png"
+          ),
+        ),
         SizedBox(width: 20,)
       ],
     );
